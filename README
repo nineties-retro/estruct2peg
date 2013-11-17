@@ -1,0 +1,74 @@
+INTRODUCTION
+   estruct2peg is a program converts the EBNF grammar for various
+   versions of Electronic Design Interchange Format (EDIF) into the 'peg'
+   format that is needed to create an EDIF parser using pep.
+
+HISTORY
+   The conversion of EDIF v200 grammar to 'peg' format was originally
+   done manually using search&replace inside Emacs.  That was tedious
+   but quicker than writing a tool to do the conversion.  That manual
+   process could also have been done for EDIF v300 ... .etc. after it
+   was finalized.  However, during the EDIF v300 design process it was
+   desirable to be able to generate&parse these interim versions to
+   validate the EDIF design.  The interim versions were being
+   generated on a weekly and sometimes daily basis so doing the
+   conversion manually was not practical.  Thus esruct2peg was written
+   to automate the conversion.
+
+   Although created for v300 and above, estruct2peg can convert the
+   original EDIF v200 grammar which is publically available as :-
+
+      http://web.archive.org/web/20050306204101/http://www.edif.org/documentation/BNF_GRAMMAR/estruct0.d
+      http://web.archive.org/web/20050306204101/http://www.edif.org/documentation/BNF_GRAMMAR/estruct1.d
+      http://web.archive.org/web/20050306204101/http://www.edif.org/documentation/BNF_GRAMMAR/estruct2.d
+      http://web.archive.org/web/20050306204101/http://www.edif.org/documentation/BNF_GRAMMAR/ekstruct0.d
+      http://web.archive.org/web/20050306204101/http://www.edif.org/documentation/BNF_GRAMMAR/ekstruct1.d
+      http://web.archive.org/web/20050306204101/http://www.edif.org/documentation/BNF_GRAMMAR/ekstruct2.d
+
+   Note that unlike the original .d files which just had LF
+   line-endings whoever put those files online used Windows and so
+   inadvertently changed the line edings to CR LF.  Since that
+   happened after estruct2peg was written it doesn't support CR in the
+   input and so if you want to use the above yoiu'll need to strip the
+   CR first.
+
+   Given that estruct2peg was designed to facilitate the conversion of
+   EDIF v300 and EDIF v400 grammars it is somewhat ironic that, as far
+   as I am aware, these grammars in their original format are not
+   freely available online -- you have to buy them from EIA or some
+   other national standards body.
+
+   You can find a grammars for EDIF v300 and EDIF v400 in a format
+   that is quite close to 'peg' as the file 'edifsyn.dat' in the EDIF
+   parsers that were made freely available by the Univerity of
+   Manchester in the late 1990s and which can still be found at :-
+
+      http://web.archive.org/web/20050311061427/http://edif-tc.cs.man.ac.uk/parser/index.html
+
+   The fact that those files are publically available mean that
+   estruct2peg is more for historical reference than necessity since
+   it would now be easier to convert that peg-like format into peg
+   with some minor editing.
+
+   The program was originally written in 1994 under Linux 0.99 and
+   compiled using gcc and lcc.  At various points in time it also ran
+   on SunOS 4.0 and Solaris.
+
+   Since it is almost a throw-away program it does not attempt to deal
+   with malloc(3) failing nor does it attempt to free the memory it
+   allocates.
+
+BUILD
+   This is a developer tool not an end-user product so there is no
+   autoconf, just type :-
+
+      $ make
+
+   and if that doesn't work for your platform then fix the ./Makefile
+   to suite your system.
+
+RUN
+   The converter takes the syntax file on standard input and writes
+   the result to the standard output.
+
+      $ ./estruct2peg < estruct0.d > edif200.peg
