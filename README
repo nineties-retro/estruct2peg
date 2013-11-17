@@ -72,3 +72,8 @@ RUN
    the result to the standard output.
 
       $ ./estruct2peg < estruct0.d > edif200.peg
+
+AUTHOR
+  Nineties Retro <nineties-retro@mail.com>
+
+  138de1a3a7ed34c84083ff4b31d035379f06a93241777162e70052f337da0cb0
